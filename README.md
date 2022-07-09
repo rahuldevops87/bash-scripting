@@ -1,2 +1,3 @@
 # bash-scripting
-This is my first commit
+
+This is central repo.
