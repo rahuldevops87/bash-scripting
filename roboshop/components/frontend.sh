@@ -12,11 +12,13 @@ LOGFILE=/tmp/$COMPONENT.log
 
 REPO_URL="https://github.com/stans-robot-project/frontend/archive/main.zip"
 
-echo -n "Installing NGNIX"
+echo "Installing NGNIX"
 yum install nginx -y &>> $LOGFILE
 
-if [ $? -eq 0] ; then
+if [ $? -eq 0 ] ; then
     echo -e "\e[32mSUCCESS\e[0m"
+else
+    echo -e "\e[31mFAILURE\e[0m"
 fi
 
 systemctl enable nginx
