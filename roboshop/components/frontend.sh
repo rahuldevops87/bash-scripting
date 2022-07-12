@@ -3,12 +3,7 @@
 # Script will run the below commands sequentially, if any command fails, script will exit by using 'set -e' option
 set -e
 
-USER_ID=$(id -u)
-
-if [ $USER_ID -ne 0 ] ; then
-    echo -e "\e[31mPlease run as a root user \e[0m"
-    exit 2
-fi
+source common.sh
 
 COMPONENT=frontend
 REPO_URL="https://github.com/stans-robot-project/frontend/archive/main.zip"
