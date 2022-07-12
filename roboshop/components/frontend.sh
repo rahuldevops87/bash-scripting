@@ -3,7 +3,7 @@
 # Script will run the below commands sequentially, if any command fails, script will exit by using 'set -e' option
 set -e
 
-source common.sh
+source components/common.sh
 
 COMPONENT=frontend
 REPO_URL="https://github.com/stans-robot-project/frontend/archive/main.zip"
