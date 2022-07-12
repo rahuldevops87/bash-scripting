@@ -12,7 +12,7 @@ LOGFILE=/tmp/$COMPONENT.log
 
 REPO_URL="https://github.com/stans-robot-project/frontend/archive/main.zip"
 
-echo "Installing NGNIX"
+echo -e "Installing NGNIX"
 yum install nginx -y &>> $LOGFILE
 
 if [ $? -eq 0 ] ; then
