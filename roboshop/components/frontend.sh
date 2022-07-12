@@ -7,6 +7,14 @@ set -e
 
 source components/common.sh
 
+stat() {
+if [ $1 -eq 0 ] ; then
+    echo -e "\e[32mSUCCESS\e[0m"
+else
+    echo -e "\e[31mFAILURE\e[0m"
+fi
+}
+
 COMPONENT=frontend
 LOGFILE=/tmp/$COMPONENT.log
 
@@ -14,19 +22,27 @@ REPO_URL="https://github.com/stans-robot-project/frontend/archive/main.zip"
 
 echo -n "Installing NGNIX:  "
 yum install nginx -y &>> $LOGFILE
+stat $?
+systemctl enable nginx >> $LOGFILE
 
-if [ $? -eq 0 ] ; then
-    echo -e "\e[32mSUCCESS\e[0m"
-else
-    echo -e "\e[31mFAILURE\e[0m"
-fi
-
-systemctl enable nginx
+echo -n "Starting NGNIX:  "
 systemctl start nginx
-curl -s -L -o /tmp/frontend.zip $REPO_URL
+stat $?
+
+echo -n "Downloading and Extracting $COMPONENT:  "
+curl -s -L -o /tmp/frontend.zip $REPO_URL &>> $LOGFILE
+stat $?
+
+echo -n "Clearing the old content:  "
 cd /usr/share/nginx/html
 rm -rf *
+stat $?
+
+echo -n "Extracting the downloaded $COMPONENT:  "
 unzip /tmp/frontend.zip
+stat $?
+
+echo -n "Updating the proxy file:   "
 mv frontend-main/* .
 mv static/* .
 rm -rf frontend-main README.md
