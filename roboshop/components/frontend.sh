@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Script will run the below commands sequentially, if any command fails, script will exit by using 'set -e' option
+set -e
+
+USER_ID=id -u
+
+if [ $USER_ID -ne 0 ] ; then
+    echo "Please run as a root user"
+    exit 2
+fi
+
+COMPONENT=frontend
 REPO_URL="https://github.com/stans-robot-project/frontend/archive/main.zip"
 
 yum install nginx -y
